@@ -35,7 +35,7 @@ stages:
       displayName: Restore
       inputs:
         command: restore
-        projects: '**/WebApp.csproj'
+        projects: '**/*.csproj'
 
     - powershell: |
        Write-Host "Hello World"
@@ -63,14 +63,14 @@ stages:
     - task: DotNetCoreCLI@2
       displayName: Build
       inputs:
-        projects: '**/WebApp.csproj'
+        projects: '**/*.csproj'
         arguments: '--configuration $(BuildConfiguration)'
 
     - task: DotNetCoreCLI@2
       displayName: Test
       inputs:
         command: test
-        projects: '**/*UnitTest*.csproj'
+        projects: '**/*[Tt]est/*.csproj'
         arguments: '--configuration $(BuildConfiguration)'
 
     - task: DotNetCoreCLI@2
