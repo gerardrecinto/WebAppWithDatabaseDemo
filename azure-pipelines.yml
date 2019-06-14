@@ -36,19 +36,23 @@ stages:
       inputs:
         command: restore
         projects: '**/*.csproj'
-
-    - powershell: |
-       Write-Host "Hello World"
-       $paths = Get-ChildItem -include *.csproj -Recurse
-       foreach($pathobject in $paths) 
-       {
-           $path = $pathobject.fullname
-           $doc = New-Object System.Xml.XmlDocument
-           $doc.Load($path)
-           $child = $doc.CreateElement("ProjectGuid")
-           $child.InnerText = [guid]::NewGuid().ToString().ToUpper()
-           $node = $doc.SelectSingleNode("//Project/PropertyGroup")
-           $node.AppendChild($child)
-           $doc.Save($path)
-       }
-     
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'build'
+        projects: '**/*.csproj'
+        arguments: '--configuration $(BuildConfiguration)'
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'test'
+        projects: '**/*[Tt]est/*.csproj'
+        arguments: '--configuration $(BuildConfiguration)'
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'publish'
+        publishWebProjects: true
+        arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'drop'
+        publishLocation: 'Container'
