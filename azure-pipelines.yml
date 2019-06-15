@@ -36,7 +36,7 @@ stages:
       inputs:
         command: 'restore'
         projects: '**/*.csproj
-          !**/*SeleniumUiTests.csproj'
+        !**/*SeleniumUiTests.csproj'
         feedsToUse: 'select'
     - task: DotNetCoreCLI@2
       inputs:
