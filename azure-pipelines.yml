@@ -17,6 +17,8 @@ trigger:
      - azure-pipelines-ci.yml
      - azure-pipelines-ci-cd.yml
 
+
+
 stages:
 - stage: Build_Stage
   displayName: Build Stage
@@ -31,16 +33,16 @@ stages:
       BuildConfiguration: release
     steps:
     - task: DotNetCoreCLI@2
-      displayName: Restore
       inputs:
-        command: restore
+        command: 'restore'
         projects: '**/*.csproj
-          !d:/a/1/s/SeleniumUiTests/SeleniumUiTests.csproj'
+          !**/*SeleniumUiTests.csproj'
+        feedsToUse: 'select'
     - task: DotNetCoreCLI@2
       inputs:
         command: 'build'
         projects: '**/*.csproj
-          !d:/a/1/s/SeleniumUiTests/SeleniumUiTests.csproj'
+        !**/*SeleniumUiTests.csproj'
         arguments: '--configuration $(BuildConfiguration)'
     - task: DotNetCoreCLI@2
       inputs:
