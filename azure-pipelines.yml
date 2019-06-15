@@ -35,12 +35,12 @@ stages:
       inputs:
         command: restore
         projects: '**/*.csproj
-          !WebAppWithDatabaseDemo/SeleniumUiTests/SeleniumUiTests.csproj'
+          !d:/a/1/s/SeleniumUiTests/SeleniumUiTests.csproj'
     - task: DotNetCoreCLI@2
       inputs:
         command: 'build'
         projects: '**/*.csproj
-          !WebAppWithDatabaseDemo/SeleniumUiTests/SeleniumUiTests.csproj'
+          !d:/a/1/s/SeleniumUiTests/SeleniumUiTests.csproj'
         arguments: '--configuration $(BuildConfiguration)'
     - task: DotNetCoreCLI@2
       inputs:
