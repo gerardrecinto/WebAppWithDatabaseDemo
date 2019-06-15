@@ -39,7 +39,7 @@ stages:
       inputs:
         command: 'build'
         projects: '**/*.csproj
-          !SeleniumUiTests.csproj'
+          !**/*SeleniumUiTests.csproj'
         arguments: '--configuration $(BuildConfiguration)'
     - task: DotNetCoreCLI@2
       inputs:
