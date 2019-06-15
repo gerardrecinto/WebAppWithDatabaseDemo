@@ -16,9 +16,6 @@ trigger:
      - README.md
      - azure-pipelines-ci.yml
      - azure-pipelines-ci-cd.yml
-
-
-
 stages:
 - stage: Build_Stage
   displayName: Build Stage
@@ -35,12 +32,12 @@ stages:
     - task: DotNetCoreCLI@2
       inputs:
         command: 'restore'
-        projects: '**/*.csproj;!**/*SeleniumUiTests.csproj'
+        projects: '**/*.csproj;!**/SeleniumUiTests.csproj'
         feedsToUse: 'select'
     - task: DotNetCoreCLI@2
       inputs:
         command: 'build'
-        projects: '**/*.csproj;!**/*SeleniumUiTests.csproj'
+        projects: '**/*.csproj;!**/SeleniumUiTests.csproj'
         arguments: '--configuration $(BuildConfiguration)'
     - task: DotNetCoreCLI@2
       inputs:
